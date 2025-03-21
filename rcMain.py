@@ -190,6 +190,6 @@ if __name__ == "__main__":
 
     # Visualizing the results
     agent.visualize()
+   
     
-# cd Blackbox
-# python rcMain.py maze.txt
+# python rcMain.py maze10.txt
