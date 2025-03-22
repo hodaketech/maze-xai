@@ -2,7 +2,20 @@
     "cSpell.words": [
         "cmap",
         "colorbar",
+        "contourpy",
+        "dateutil",
+        "filelock",
+        "fonttools",
+        "fsspec",
         "imshow",
+        "kiwisolver",
+        "matplotlib",
+        "mpmath",
+        "networkx",
+        "numpy",
+        "pyparsing",
+        "setuptools",
+        "sympy",
         "xticks",
         "yticks"
     ]

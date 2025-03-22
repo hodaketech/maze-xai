@@ -79,7 +79,7 @@ class RewardPathFinder:
                 if last_action is not None and ((action == 0 and last_action == 1) or (action == 1 and last_action == 0) or (action == 2 and last_action == 3) or (action == 3 and last_action == 2)):
                     reward -= 1  # Penalty for turning around
                 elif self.is_terminal(next_state):
-                    reward += 300  # reward for reaching the end
+                    reward += 30  # reward for reaching the end
                 elif next_state in self.blocked_points:
                     reward -= 1  # penalty for hitting a blocked point (walls)
                     self.consecutive_safe_actions = 0  # Reset counter
@@ -87,9 +87,9 @@ class RewardPathFinder:
                     reward += 0  # neutral reward for other moves
                     self.consecutive_safe_actions += 1  # Increment counter for safe actions
                     if self.consecutive_safe_actions == 2:
-                        reward += 2  # Reward for 3 consecutive safe actions
+                        reward += 2  # Reward for 2 consecutive safe actions
                         self.consecutive_safe_actions = 0  # Reset counter
-                    elif self.consecutive_safe_actions == 3:
+                    elif self.consecutive_safe_actions == 4:
                         reward += 3
                         self.consecutive_safe_actions = 0
 
