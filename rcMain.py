@@ -79,7 +79,7 @@ class RewardPathFinder:
                 if last_action is not None and ((action == 0 and last_action == 1) or (action == 1 and last_action == 0) or (action == 2 and last_action == 3) or (action == 3 and last_action == 2)):
                     reward -= 1  # Penalty for turning around
                 elif self.is_terminal(next_state):
-                    reward += 30  # reward for reaching the end
+                    reward += 300  # reward for reaching the end
                 elif next_state in self.blocked_points:
                     reward -= 1  # penalty for hitting a blocked point (walls)
                     self.consecutive_safe_actions = 0  # Reset counter
@@ -87,10 +87,10 @@ class RewardPathFinder:
                     reward += 0  # neutral reward for other moves
                     self.consecutive_safe_actions += 1  # Increment counter for safe actions
                     if self.consecutive_safe_actions == 2:
-                        reward += 1  # Reward for 3 consecutive safe actions
+                        reward += 2  # Reward for 3 consecutive safe actions
                         self.consecutive_safe_actions = 0  # Reset counter
                     elif self.consecutive_safe_actions == 3:
-                        reward += 2
+                        reward += 3
                         self.consecutive_safe_actions = 0
 
                 self.update_q_table(state, action, reward, next_state)
@@ -102,6 +102,7 @@ class RewardPathFinder:
             if total_reward > best_total_reward:
                 best_total_reward = total_reward
                 self.best_path = current_path  # Update the best path
+                
             if episode == 999 and log_random_episode:  # Log episode 1000
                 print(f"Logging actions for the last episode:")
                 for i in range(len(current_path) - 1):
@@ -151,17 +152,20 @@ class RewardPathFinder:
             plt.colorbar(label='Heatmap')
         plt.title('Heatmap of Actions' if not show_q_values else 'Q-Values Heatmap')
         
-        # Marking the start, end, and blocked points
-        plt.scatter(self.start[1], self.start[0], marker='o', color='green', label='Start')
-        plt.scatter(self.end[1], self.end[0], marker='x', color='blue', label='End')
-        for point in self.blocked_points:
-            plt.scatter(point[1], point[0], marker='s', color='red', label='Blocked' if point == self.blocked_points[0] else "")
-        
         # Draw the shortest path
         shortest_path = self.get_shortest_path()
         if shortest_path:
             path_x, path_y = zip(*shortest_path)
             plt.plot(path_y, path_x, marker='o', color='cyan', label='Shortest Path')
+        
+        # Marking the blocked points
+        for point in self.blocked_points:
+            plt.scatter(point[1], point[0], marker='s', color='red', label='Blocked' if point == self.blocked_points[0] else "", zorder=2)
+    
+        # Marking the start and end points
+        plt.scatter(self.start[1], self.start[0], marker='o', color='green', label='Start', zorder=3)
+        plt.scatter(self.end[1], self.end[0], marker='x', color='blue', label='End', zorder=3)
+
         
         plt.legend()
         plt.grid(True)  # Add grid for better visualization
@@ -178,7 +182,7 @@ class RewardPathFinder:
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python rcMain3.py <maze_file>")
+        print("Usage: python rcMain.py <maze_file>")
         sys.exit(1)
 
     maze_file = sys.argv[1]
