@@ -38,7 +38,7 @@ _In grid 20x20:_
 1. Clone the repository:  
 `git clone https://github.com/nguyenthanhtin0712/maze-XRL.git`
 2. Install the required packages:  
-`pip3 install -y numpy matplotlib gym`  
+`pip3 install numpy matplotlib gym`  
 3. Choose **rcMain.py** to run
 4. Check the grid_size to change the size of the maze (line 189)
 5. Run the code:  
