@@ -17,6 +17,7 @@
         "setuptools",
         "sympy",
         "xticks",
-        "yticks"
+        "yticks",
+        "zorder"
     ]
 }

@@ -16,7 +16,7 @@ We need to provide specific maze data. The code will train for 1000 random episo
 - Reaching the goal (line 82): +
 - Hitting a blocked (line 84): -
 - Turning around (line 79): -
-- Consecutive safe actions (line 90, 93): +
+- Consecutive safe actions (line 90): +
 
 *Note: The value of point is not fixed, it can be adjusted based on the large of the maze and the difficulty of the game.*
 
@@ -26,18 +26,17 @@ _In grid 10x10:_
 > - Reaching the goal: +30
 > - Hitting a blocked: -1
 > - Turning around: -1
-> - 2 Consecutive safe actions: +2
-> - 4 Consecutive safe actions: +3
+> - 2 Consecutive safe actions: +2  
 
 _In grid 20x20:_
 > - Reaching the goal: +300
 > - Hitting a blocked: -1
 > - Turning around: -1
-> - 2 Consecutive safe actions: +2
-> - 4 Consecutive safe actions: +5
+> - 2 Consecutive safe actions: +2  
 
 ## How to run this code ?
-1. Clone the repository: https://github.com/nguyenthanhtin0712/maze-XRL.git
+1. Clone the repository:  
+`git clone https://github.com/nguyenthanhtin0712/maze-XRL.git`
 2. Install the required packages:  
 `pip3 install -y numpy matplotlib gym`  
 3. Choose **rcMain.py** to run

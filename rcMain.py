@@ -89,9 +89,7 @@ class RewardPathFinder:
                     if self.consecutive_safe_actions == 2:
                         reward += 2  # Reward for 2 consecutive safe actions
                         self.consecutive_safe_actions = 0  # Reset counter
-                    elif self.consecutive_safe_actions == 4:
-                        reward += 3
-                        self.consecutive_safe_actions = 0
+
 
                 self.update_q_table(state, action, reward, next_state)
                 state = next_state
@@ -190,7 +188,7 @@ if __name__ == "__main__":
     agent = RewardPathFinder(grid_size, maze_file)
 
     # Training the robot
-    agent.train(1000)
+    agent.train(500)
 
     # Visualizing the results
     agent.visualize()
