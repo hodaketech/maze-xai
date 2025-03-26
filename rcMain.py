@@ -178,6 +178,68 @@ class RewardPathFinder:
                 for j in range(self.grid_size):
                     print(f"State {i, j}: Q-Values: {self.q_table[i, j]}")
 
+
+    ### Code for visualizing the Q-Values table !!!!! ###
+    """
+    def visualize(self, show_q_values=False):
+        q_values = np.max(self.q_table, axis=2)
+        plt.figure(figsize=(12, 12))  # Adjust the figure size
+
+        # Heatmap visualization
+        plt.subplot(2, 1, 1)  # Create a subplot for the heatmap
+        plt.imshow(q_values, cmap='hot', interpolation='nearest')
+        plt.colorbar(label='Q-Values')
+        plt.title('Heatmap of Actions')
+
+        # Draw the shortest path
+        shortest_path = self.get_shortest_path()
+        if shortest_path:
+            path_x, path_y = zip(*shortest_path)
+            plt.plot(path_y, path_x, marker='o', color='cyan', label='Shortest Path')
+
+        # Marking the blocked points
+        for point in self.blocked_points:
+            plt.scatter(point[1], point[0], marker='s', color='red', label='Blocked' if point == self.blocked_points[0] else "", zorder=2)
+
+        # Marking the start and end points
+        plt.scatter(self.start[1], self.start[0], marker='o', color='green', label='Start', zorder=3)
+        plt.scatter(self.end[1], self.end[0], marker='x', color='blue', label='End', zorder=3)
+
+        plt.legend()
+        plt.grid(True)  # Add grid for better visualization
+        plt.xticks(np.arange(self.grid_size))
+        plt.yticks(np.arange(self.grid_size))
+
+        # Table visualization
+        plt.subplot(2, 1, 2)  # Create a subplot for the table
+        cell_text = []
+        for i in range(self.grid_size):
+            row = []
+            for j in range(self.grid_size):
+                q_values_for_state = self.q_table[i, j]
+                max_q_value = np.max(q_values_for_state)
+                actions = ['T', 'D', 'L', 'R']  # Top, Down, Left, Right
+                action_values = [f"{actions[k]}:{q_values_for_state[k]:.2f}" for k in range(4)]
+                highlighted_action = actions[np.argmax(q_values_for_state)]
+                row.append(f"{', '.join(action_values)}\nMax: {highlighted_action}")
+            cell_text.append(row)
+
+        table = plt.table(cellText=cell_text,
+                        rowLabels=[f"Row {i}" for i in range(self.grid_size)],
+                        colLabels=[f"Col {j}" for j in range(self.grid_size)],
+                        loc='center',
+                        cellLoc='center')
+        table.auto_set_font_size(False)
+        table.set_fontsize(6)
+        table.scale(1.5, 1.5)
+
+        plt.axis('off')  # Turn off the axis for the table
+
+        plt.tight_layout()  # Adjust layout to prevent overlap
+        plt.show()
+        plt.close()
+    """
+    
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: python rcMain.py <maze_file>")

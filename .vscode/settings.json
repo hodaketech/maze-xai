@@ -4,6 +4,7 @@
         "colorbar",
         "contourpy",
         "dateutil",
+        "figsize",
         "filelock",
         "fonttools",
         "fsspec",
