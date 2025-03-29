@@ -180,7 +180,7 @@ class RewardPathFinder:
 
 
     ### Code for visualizing the Q-Values table !!!!! ###
-    """
+    
     def visualize(self, show_q_values=False):
         q_values = np.max(self.q_table, axis=2)
         plt.figure(figsize=(12, 12))  # Adjust the figure size
@@ -238,7 +238,7 @@ class RewardPathFinder:
         plt.tight_layout()  # Adjust layout to prevent overlap
         plt.show()
         plt.close()
-    """
+    
     
 if __name__ == "__main__":
     if len(sys.argv) != 2:
