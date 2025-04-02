@@ -242,7 +242,7 @@ class RewardPathFinder:
     
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python rcMain.py <maze_file>")
+        print("Usage: python non-MSX.py <maze_file>")
         sys.exit(1)
 
     maze_file = sys.argv[1]
@@ -256,4 +256,4 @@ if __name__ == "__main__":
     agent.visualize()
    
     
-# python rcMain.py maze10.txt
+# python non-MSX.py maze10.txt

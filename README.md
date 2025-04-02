@@ -12,6 +12,7 @@ After training agents with 1000 episodes, the result is included in a heat map (
 
 ## General Formula & Result of Demo
 [./maze-XRL/screenshots/]
+[./maze-XRL/excel-results/]
 
 ## Punishment and Reward
 - Reaching the goal (line 79): +

@@ -68,11 +68,11 @@ class RewardPathFinder:
         if last_action is not None and (
             (action == 0 and last_action == 1) or (action == 1 and last_action == 0) or
             (action == 2 and last_action == 3) or (action == 3 and last_action == 2)):
-            rewards['turn'] = -2
+            rewards['turn'] = -1
         if self.is_terminal(next_state):
-            rewards['goal'] = 1000
+            rewards['goal'] = 30
         if next_state in self.blocked_points:
-            rewards['blocked'] = -2
+            rewards['blocked'] = -1
             self.consecutive_safe_actions = 0
         else:
             for a in range(4):
@@ -83,7 +83,7 @@ class RewardPathFinder:
                     break
             self.consecutive_safe_actions += 1
             if self.consecutive_safe_actions == 2:
-                rewards['safe'] = 10
+                rewards['safe'] = 2
                 self.consecutive_safe_actions = 0
         return rewards
 
@@ -150,27 +150,6 @@ class RewardPathFinder:
         
         return msx_plus, msx_minus, explanation, formula_details
     
-    def get_run_count(self, grid_size):
-        # File lưu số lần chạy
-        run_count_file = f"run_count_{grid_size}.txt"
-        
-        # Nếu file không tồn tại, khởi tạo số lần chạy là 0
-        if not os.path.exists(run_count_file):
-            with open(run_count_file, 'w') as f:
-                f.write("0")
-        
-        # Đọc số lần chạy từ file
-        with open(run_count_file, 'r') as f:
-            run_count = int(f.read().strip())
-        
-        # Tăng số lần chạy lên 1
-        run_count += 1
-        
-        # Ghi lại số lần chạy mới vào file
-        with open(run_count_file, 'w') as f:
-            f.write(str(run_count))
-        
-        return run_count
 
     def train(self, episodes, log_random_episode=False):
         best_total_reward = -float('inf')
@@ -244,17 +223,15 @@ class RewardPathFinder:
                 df = pd.DataFrame(table_data)
                 
                 # Lưu vào file Excel với nhiều sheet
-                output_dir = "excel-results"
-                if not os.path.exists(output_dir):
-                    os.makedirs(output_dir)
-                output_file = os.path.join(output_dir, f"grid-{grid_size}-log-{run_count}.xlsx")
+                output_file = "episode_1000_log.xlsx"
                 with pd.ExcelWriter(output_file, engine='openpyxl') as writer:
                     # Lưu dữ liệu chính vào sheet 1
                     df.to_excel(writer, sheet_name='Episode Log', index=False)
                     
                     # Lưu 4 bảng Q-Values vào các sheet 2, 3, 4, 5
                     for c_idx, component in enumerate(self.reward_components):
-                        q_table_component = self.q_table[c_idx]
+                        q_table_component = self.q_table[c_idx]  # Q-Table của thành phần hiện tại
+                        # Tạo DataFrame cho Q-Table
                         q_data = []
                         for i in range(self.grid_size):
                             for j in range(self.grid_size):
@@ -267,10 +244,11 @@ class RewardPathFinder:
                                 }
                                 q_data.append(row)
                         q_df = pd.DataFrame(q_data)
+                        # Lưu vào sheet tương ứng (sheet 2, 3, 4, 5)
                         q_df.to_excel(writer, sheet_name=f'Q_{component}', index=False)
                     
                     # Lưu bảng Q tổng hợp vào sheet 6
-                    total_q_table = np.sum(self.q_table, axis=0)
+                    total_q_table = np.sum(self.q_table, axis=0)  # Tổng Q-Table của tất cả các thành phần
                     total_q_data = []
                     for i in range(self.grid_size):
                         for j in range(self.grid_size):
@@ -355,30 +333,15 @@ class RewardPathFinder:
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python drQ-main.py <maze_file>")
+        print("Usage: python rcMain.py <maze_file>")
         sys.exit(1)
 
     maze_file = sys.argv[1]
-    grid_size = 20
+    grid_size = 10
     agent = RewardPathFinder(grid_size, maze_file)
 
-    # Lấy số lần chạy cho grid_size hiện tại
-    run_count = agent.get_run_count(grid_size)
-
-    # Tạo thư mục 'excel-results' nếu chưa tồn tại
-    output_dir = "excel-results"
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-
-    # Tạo tên file output
-    output_file = os.path.join(output_dir, f"grid-{grid_size}-log-{run_count}.xlsx")
-
-    # Huấn luyện agent
     agent.train(1000, log_random_episode=True)
 
-    # Hiển thị kết quả và lưu log
     agent.visualize(show_q_values=True)
-    print(f"Output file: {output_file}")
-
-# python drQ-main.py maze10.txt
-# python drQ-main.py maze20.txt
+    
+# python drQ-backup.py maze10.txt
