@@ -79,7 +79,7 @@ class RewardPathFinder:
                 if last_action is not None and ((action == 0 and last_action == 1) or (action == 1 and last_action == 0) or (action == 2 and last_action == 3) or (action == 3 and last_action == 2)):
                     reward -= 1  # Penalty for turning around
                 elif self.is_terminal(next_state):
-                    reward += 30  # reward for reaching the end
+                    reward += 70  # reward for reaching the end
                 elif next_state in self.blocked_points:
                     reward -= 1  # penalty for hitting a blocked point (walls)
                     self.consecutive_safe_actions = 0  # Reset counter
@@ -256,4 +256,4 @@ if __name__ == "__main__":
     agent.visualize()
    
     
-# python non-MSX.py maze10.txt
+# python non_MSX.py maze10.txt
