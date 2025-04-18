@@ -29,3 +29,5 @@ The table below gives an impression of the relative performance of each of these
 | drQModel | 10 times | 60.5 | 4 min 2 sec |
 
 Requires matplotlib, numpy, keras and tensorflow.
+******HOW TO RUN CODE
+run "python main.py"
