@@ -38,7 +38,6 @@ _In grid 20x20:_
 
 ## How to run this code ?
 1. Clone the repository:  
-`git clone https://github.com/nguyenthanhtin0712/maze-XRL.git`
 2. Install the required packages:  
 `pip3 install numpy matplotlib openpyxl gym`  
 3. Choose **drQ-main.py** to run
